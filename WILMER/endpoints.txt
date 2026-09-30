@@ -1,0 +1,124 @@
+const express = require('express');
+const mysql = require('mysql2/promise');
+
+const app = express();
+
+// Middleware para entender JSON y formularios
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Configuración de la conexión a la base de datos MySQL
+const pool = mysql.createPool({
+    host: 'localhost',
+    user: 'root',       // Cambia esto por tu usuario de MySQL
+    password: '',       // Cambia esto por tu contraseña de MySQL
+    database: 'pluviometria_temperatura',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
+
+// ==========================================
+// ENDPOINTS
+// ==========================================
+
+// 1. Endpoint GET: Obtener todos los registros de pluviosidad/temperatura junto con su zona, país y continente
+app.get('/api/pluviometria', async (req, res) => {
+    try {
+        const query = `
+            SELECT 
+                p.id,
+                z.nombre AS zona,
+                pa.nombre AS pais,
+                c.nombre AS continente,
+                p.pl_precipitacion_actual,
+                p.pl_precipitacion_anterior,
+                p.pl_unidad,
+                p.fecha_referencia,
+                p.temp_valor,
+                p.temp_unidad
+            FROM pltemp_pluviometria p
+            INNER JOIN pltemp_zonas z ON p.id_zona = z.id_zona
+            INNER JOIN pltemp_paises pa ON z.id_pais = pa.id_pais
+            INNER JOIN pltemp_continentes c ON pa.id_continente = c.id_continente
+            ORDER BY p.id ASC;
+        `;
+
+        const [rows] = await pool.query(query);
+
+        res.status(200).json({
+            success: true,
+            total: rows.length,
+            data: rows
+        });
+    } catch (error) {
+        console.error('Error al obtener los datos:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error interno del servidor al consultar la base de datos'
+        });
+    }
+});
+
+// 2. Endpoint POST: Crear un nuevo registro de pluviometría y temperatura
+app.post('/api/pluviometria', async (req, res) => {
+    const { 
+        id_zona, 
+        pl_precipitacion_actual, 
+        pl_precipitacion_anterior, 
+        fecha_referencia, 
+        temp_valor 
+    } = req.body;
+    
+    // Validar campos obligatorios
+    if (!id_zona || pl_precipitacion_actual === undefined || !fecha_referencia || temp_valor === undefined) {
+        return res.status(400).json({ 
+            success: false, 
+            message: 'Los campos id_zona, pl_precipitacion_actual, fecha_referencia y temp_valor son obligatorios' 
+        });
+    }
+
+    try {
+        const query = `
+            INSERT INTO pltemp_pluviometria 
+            (id_zona, pl_precipitacion_actual, pl_precipitacion_anterior, fecha_referencia, temp_valor) 
+            VALUES (?, ?, ?, ?, ?)
+        `;
+
+        const [result] = await pool.execute(query, [
+            id_zona, 
+            pl_precipitacion_actual, 
+            pl_precipitacion_anterior || null, 
+            fecha_referencia, 
+            temp_valor
+        ]);
+
+        const newRecord = {
+            id: result.insertId,
+            id_zona,
+            pl_precipitacion_actual,
+            pl_precipitacion_anterior: pl_precipitacion_anterior || null,
+            fecha_referencia,
+            temp_valor
+        };
+
+        res.status(201).json({
+            success: true,
+            message: 'Registro meteorológico creado exitosamente',
+            data: newRecord
+        });
+
+    } catch (error) {
+        console.error('Error al insertar el registro:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error al insertar en la base de datos (verifica que el id_zona exista)'
+        });
+    }
+});
+
+// Iniciar servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
