@@ -1,0 +1,47 @@
+const express = require('express');
+const app = express();
+
+// Middleware para entender JSON
+app.express.json ? app.use(express.json()) : app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Simulación de una base de datos en memoria
+let items = [
+    { id: 1, name: 'Elemento 1' },
+    { id: 2, name: 'Elemento 2' }
+];
+
+// 1. Endpoint GET: Obtener todos los elementos
+app.get('/api/items', (req, res) => {
+    res.status(200).json({
+        success: true,
+        data: items
+    });
+});
+
+// 2. Endpoint POST: Crear un nuevo elemento
+app.post('/api/items', (req, res) => {
+    const { name } = req.body;
+    
+    if (!name) {
+        return res.status(400).json({ success: false, message: 'El campo "name" es obligatorio' });
+    }
+
+    const newItem = {
+        id: items.length + 1,
+        name: name
+    };
+
+    items.push(newItem);
+
+    res.status(201).json({
+        success: true,
+        message: 'Elemento creado exitosamente',
+        data: newItem
+    });
+});
+
+// Iniciar servidor
+app.listen(3000, () => {
+    console.log('Servidor corriendo en http://localhost:3000');
+});
