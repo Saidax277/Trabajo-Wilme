@@ -7,7 +7,7 @@
  <body> <p> ESTO ES UN PARRAFO DE TEXTO </p>
 
 <?php include "./Pluviometria.php"; ?>
-<?php include "./Temperatura.php"; ?>
+<!--<?php include "./Temperatura.php"; ?>-->
 
 
 </body>
