@@ -1,0 +1,14 @@
+{
+  "name": "linkedin-login",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "jose": "^6.0.11"
+  }
+}

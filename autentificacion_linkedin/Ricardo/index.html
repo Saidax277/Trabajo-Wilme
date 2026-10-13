@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso con LinkedIn</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="login-container">
+    <h1>Iniciar sesión</h1>
+    <p>Accede utilizando tu cuenta de LinkedIn.</p>
+
+    <a class="linkedin-button" href="/auth/linkedin">
+      Continuar con LinkedIn
+    </a>
+
+    <p id="mensaje" role="status" aria-live="polite"></p>
+    <section id="perfil" hidden>
+      <h2>Bienvenido/a</h2>
+      <p id="nombre"></p>
+      <p id="correo"></p>
+      <button id="cerrarSesion" type="button">
+        Cerrar sesión
+      </button>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,70 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f6f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  color: #1d2226;
+}
+
+.login-container {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: calc(100% - 32px);
+  max-width: 400px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 26px;
+}
+
+.linkedin-button {
+  display: block;
+  margin-top: 24px;
+  padding: 13px 18px;
+  background: #0a66c2;
+  color: white;
+  text-decoration: none;
+  border-radius: 24px;
+  font-weight: bold;
+}
+
+.linkedin-button:hover {
+  background: #004182;
+}
+
+#mensaje {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.correcto {
+  color: #16803c;
+}
+
+.incorrecto {
+  color: #c62828;
+}
+
+#perfil {
+  margin-top: 20px;
+  overflow-wrap: anywhere;
+}
+
+#cerrarSesion {
+  margin-top: 12px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 6px;
+  background: #e8eef3;
+  cursor: pointer;
+}
