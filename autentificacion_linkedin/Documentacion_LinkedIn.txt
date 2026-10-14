@@ -8,7 +8,7 @@ Este proyecto va dirigido a todos los usuario que usen una cuenta de LinkedIn pa
 
 Objetivos
 
-Crear una pagina web con la cual permitir el acceso de usuario con una cuenta de LinkedIn por medio de un un ID y un token.
+Crear una pagina web con la cual permitir el acceso de usuario con una cuenta de LinkedIn por medio de un ID y un token.
 
 Desarrollo
 
