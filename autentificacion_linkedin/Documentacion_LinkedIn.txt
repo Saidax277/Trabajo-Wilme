@@ -1,0 +1,23 @@
+Introducción
+
+Crear una web con la que realizar una autentificación de un usuario y un token o contraseña con la cual acceder a la web, para ello cada grupo de trabajo a de usar una plataforma distinta, siendo estas: Facebook(Meta), Google y LinkedIn.
+
+Alcance
+
+Este proyecto va dirigido a todos los usuario que usen una cuenta de LinkedIn para acceder a la pagina.
+
+Objetivos
+
+Crear una pagina web con la cual permitir el acceso de usuario con una cuenta de LinkedIn por medio de un un ID y un token.
+
+Desarrollo
+
+Para crear esta web cada integrante aporto una versión del modelo de la web, luego desde la plataforma de LinkedIn se uso cuentas verificadas pertenecientes a cada integrante del grupo y un usuario adicional para permitir desde la plataforma de desarrolladores de LinkedIn para crear una pagina de empresa(ficticia) y con los token que nos proporciona poder validar los usuarios pertenecientes a la pagina de empresa, después añadir los datos de la API de la empresa (ID y token) al código de la pagina creada y finalmente autentificar mediante LinkedIn el acceso de los usuarios.
+
+Obstáculos
+
+Para verificar las cuentas de usuario se debe de usar nuestros documentos de identidad (DNI) para luego añadir a cada usuario como "contactos" para crear la pagina de empresa, exige al menos 5 contactos y una URL para la pagina.
+
+Conclusión
+
+Con la pagina creada y tras probar el acceso de cada uno de los integrantes con uso de las credenciales de LinkedIn podemos acceder al contenido de la pagina.
